@@ -119,63 +119,51 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-900/20 via-black to-purple-900/20"></div>
-      <div
-        className="fixed inset-0 opacity-30"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
-        }}
-      ></div>
-
+    <main className="min-h-screen bg-black">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="container mx-auto text-center">
-          <div className="animate-fade-in">
-            <div className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-sm rounded-full px-4 py-2 mb-8 border border-white/10">
+      <section className="relative pt-24 pb-16">
+        <div className="container">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center space-x-2 bg-green-500/10 rounded-full px-4 py-2 mb-6 border border-green-500/20">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-300">Live • 24/7 Instant Delivery</span>
+              <span className="text-sm text-green-400">Live • 24/7 Instant Delivery</span>
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
-              Premium Digital
-              <br />
-              <span className="gradient-text">Accounts</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+              Premium Digital <span className="text-blue-500">Accounts</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
               Get instant access to premium accounts with lifetime warranty.
-              <br className="hidden md:block" />
               Trusted by 50,000+ customers worldwide.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 href="#products"
-                className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover-glow inline-flex items-center space-x-2"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center justify-center space-x-2 transition-colors"
               >
                 <span>Browse Products</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
                 href="https://t.me/buyaccounts24"
-                className="glass-effect text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all inline-flex items-center space-x-2"
+                className="border border-gray-600 hover:border-gray-500 text-white px-8 py-3 rounded-lg font-semibold inline-flex items-center justify-center space-x-2 transition-colors"
               >
                 <span>Contact Support</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div key={index} className="text-center">
                   <div className="flex justify-center mb-2">
-                    <stat.icon className="w-6 h-6 text-blue-400" />
+                    <stat.icon className="w-5 h-5 text-blue-400" />
                   </div>
-                  <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="text-xl md:text-2xl font-bold text-white mb-1">{stat.value}</div>
                   <div className="text-gray-400 text-sm">{stat.label}</div>
                 </div>
               ))}
@@ -185,93 +173,91 @@ export default function Home() {
       </section>
 
       {/* Products Section */}
-      <section id="products" className="relative py-20 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Featured <span className="gradient-text">Products</span>
+      <section id="products" className="py-16">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Featured <span className="text-blue-500">Products</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
               Handpicked premium accounts with instant delivery and lifetime support
             </p>
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => handleFilter(cat.id)}
-                className={`group flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
                   activeFilter === cat.id
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                    : 'glass-effect text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                 }`}
               >
-                <cat.icon className="w-5 h-5" />
+                <cat.icon className="w-4 h-4" />
                 <span>{cat.name}</span>
               </button>
             ))}
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {visibleProducts.map((product, index) => (
-              <div key={product.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <ProductCard {...product} />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.id} {...product} />
             ))}
           </div>
 
           {/* Load More Button */}
           <div className="text-center">
-            <button className="glass-effect text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all inline-flex items-center space-x-2 group">
+            <button className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-flex items-center space-x-2">
               <span>Load More Products</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="relative py-20 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Why Choose <span className="gradient-text">Us?</span>
+      <section className="py-16 bg-gray-900">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Why Choose <span className="text-blue-500">Us?</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
               We provide the best service in the market with unmatched quality and support
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-effect rounded-2xl p-8 text-center group hover:bg-white/10 transition-all card-hover">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Zap className="w-8 h-8 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Instant Delivery</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-xl font-bold text-white mb-3">Instant Delivery</h3>
+              <p className="text-gray-400">
                 Get your accounts delivered within minutes of purchase. Our automated system ensures lightning-fast delivery.
               </p>
             </div>
 
-            <div className="glass-effect rounded-2xl p-8 text-center group hover:bg-white/10 transition-all card-hover">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Shield className="w-8 h-8 text-white" />
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Lifetime Warranty</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-xl font-bold text-white mb-3">Lifetime Warranty</h3>
+              <p className="text-gray-400">
                 All accounts come with lifetime warranty. If something goes wrong, we'll replace it for free.
               </p>
             </div>
 
-            <div className="glass-effect rounded-2xl p-8 text-center group hover:bg-white/10 transition-all card-hover">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Clock className="w-8 h-8 text-white" />
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">24/7 Support</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-xl font-bold text-white mb-3">24/7 Support</h3>
+              <p className="text-gray-400">
                 Our dedicated support team is available round the clock to help you with any questions or issues.
               </p>
             </div>
@@ -280,33 +266,30 @@ export default function Home() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="relative py-20 px-6">
-        <div className="container mx-auto">
-          <div className="glass-effect rounded-3xl p-12 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Stay <span className="gradient-text">Updated</span>
-              </h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Get notified about new arrivals, exclusive deals, and special offers. Join 10,000+ subscribers.
-              </p>
+      <section className="py-16">
+        <div className="container">
+          <div className="bg-gray-800 rounded-2xl p-8 text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Stay <span className="text-blue-500">Updated</span>
+            </h2>
+            <p className="text-lg text-gray-400 mb-6">
+              Get notified about new arrivals, exclusive deals, and special offers.
+            </p>
 
-              <form className="max-w-md mx-auto flex gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover-glow transition-all"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                required
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
       </section>

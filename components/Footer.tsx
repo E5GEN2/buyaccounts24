@@ -26,21 +26,18 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-black border-t border-white/10">
-      <div className="container mx-auto px-6 py-16">
+    <footer className="bg-gray-900 border-t border-gray-800">
+      <div className="container py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-6">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg blur-md opacity-70"></div>
-                <div className="relative bg-black rounded-lg p-2">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
+              <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">
-                Buy<span className="gradient-text">Accounts</span>
+                Buy<span className="text-blue-500">Accounts</span>
               </span>
             </Link>
 
@@ -133,12 +130,12 @@ export default function Footer() {
         </div>
 
         {/* Newsletter Section */}
-        <div className="glass-effect rounded-2xl p-8 mb-12">
+        <div className="bg-gray-800 rounded-xl p-6 mb-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Get the latest <span className="gradient-text">updates</span>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Get the latest <span className="text-blue-500">updates</span>
             </h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-400 mb-4">
               Subscribe to our newsletter for exclusive deals and new product announcements.
             </p>
 
@@ -146,12 +143,12 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
                 required
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover-glow transition-all whitespace-nowrap"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -160,26 +157,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-gray-800">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
             © {currentYear} BuyAccounts24. All rights reserved.
           </div>
 
-          <div className="flex items-center space-x-6 text-sm">
+          <div className="flex items-center space-x-4 text-sm">
             <div className="flex items-center space-x-2 text-gray-400">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span>All systems operational</span>
             </div>
-
-            <Link href="/status" className="text-gray-400 hover:text-white transition-colors">
-              System Status
-            </Link>
           </div>
         </div>
       </div>
-
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/5 to-transparent pointer-events-none"></div>
     </footer>
   );
 }
