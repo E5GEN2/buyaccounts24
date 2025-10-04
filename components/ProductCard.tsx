@@ -2,82 +2,138 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { Star, ShoppingCart, Eye, Zap } from 'lucide-react';
 
 interface ProductCardProps {
   title: string;
-  vendor: string;
+  description: string;
   price: string;
   originalPrice?: string;
-  badge?: 'new' | 'hot' | 'sale';
+  badge?: 'popular' | 'trending' | 'new' | 'deal';
   category: string;
+  rating: number;
+  sales: number;
   imageUrl: string;
+  features: string[];
 }
 
 export default function ProductCard({
   title,
-  vendor,
+  description,
   price,
   originalPrice,
   badge,
   category,
+  rating,
+  sales,
   imageUrl,
+  features,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
-  const getBadgeClass = () => {
+  const getBadgeConfig = () => {
     switch (badge) {
+      case 'popular':
+        return { text: 'Popular', className: 'bg-gradient-to-r from-orange-500 to-red-500' };
+      case 'trending':
+        return { text: 'Trending', className: 'bg-gradient-to-r from-green-500 to-emerald-500' };
       case 'new':
-        return 'bg-green-500';
-      case 'hot':
-        return 'bg-red-500';
-      case 'sale':
-        return 'bg-yellow-500 text-gray-900';
+        return { text: 'New', className: 'bg-gradient-to-r from-blue-500 to-purple-500' };
+      case 'deal':
+        return { text: 'Deal', className: 'bg-gradient-to-r from-yellow-500 to-orange-500' };
       default:
-        return '';
+        return null;
     }
   };
 
+  const badgeConfig = getBadgeConfig();
+
   return (
     <div
-      className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-      data-category={category}
+      className="glass-effect rounded-2xl overflow-hidden card-hover group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden rounded-t-lg">
+      {/* Badge */}
+      {badgeConfig && (
+        <div className="absolute top-4 left-4 z-10">
+          <span className={`${badgeConfig.className} text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide`}>
+            {badgeConfig.text}
+          </span>
+        </div>
+      )}
+
+      {/* Image Container */}
+      <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        {badge && (
-          <div className="absolute top-2 left-2">
-            <span className={`${getBadgeClass()} text-white px-3 py-1 rounded text-xs font-semibold uppercase`}>
-              {badge}
-            </span>
-          </div>
-        )}
-        {isHovered && (
-          <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center transition-opacity">
-            <button className="bg-white text-gray-900 px-6 py-2 rounded font-medium hover:bg-gray-100 transition">
-              Quick View
+
+        {/* Overlay on hover */}
+        <div className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 flex items-center justify-center ${
+          isHovered ? 'opacity-100' : 'opacity-0'
+        }`}>
+          <div className="flex gap-3">
+            <button className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-all">
+              <Eye className="w-5 h-5" />
+            </button>
+            <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-full hover:shadow-lg transition-all">
+              <ShoppingCart className="w-5 h-5" />
             </button>
           </div>
-        )}
-      </div>
-      <div className="p-4">
-        <h3 className="font-semibold text-lg mb-1">{title}</h3>
-        <p className="text-gray-600 text-sm mb-3">{vendor}</p>
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xl font-bold text-blue-500">{price}</span>
-          {originalPrice && (
-            <span className="text-gray-400 line-through text-sm">{originalPrice}</span>
-          )}
         </div>
-        <button className="w-full bg-gray-900 text-white py-2 rounded hover:bg-blue-500 transition font-medium">
-          Add to Cart
-        </button>
+
+        {/* Quick stats overlay */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
+            <Star className="w-3 h-3 text-yellow-400 fill-current" />
+            <span className="text-white text-xs font-medium">{rating}</span>
+          </div>
+          <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1">
+            <span className="text-white text-xs font-medium">{sales.toLocaleString()} sold</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <div className="mb-3">
+          <h3 className="text-white font-bold text-lg mb-1 line-clamp-1">{title}</h3>
+          <p className="text-gray-400 text-sm line-clamp-2">{description}</p>
+        </div>
+
+        {/* Features */}
+        <div className="flex flex-wrap gap-1 mb-4">
+          {features.slice(0, 3).map((feature, index) => (
+            <span key={index} className="bg-white/10 text-gray-300 px-2 py-1 rounded-md text-xs">
+              {feature}
+            </span>
+          ))}
+        </div>
+
+        {/* Price and Action */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-white font-bold text-xl">{price}</span>
+            {originalPrice && (
+              <span className="text-gray-500 line-through text-sm">{originalPrice}</span>
+            )}
+          </div>
+
+          <button className="group/btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all flex items-center gap-2">
+            <ShoppingCart className="w-4 h-4" />
+            <span>Add to Cart</span>
+          </button>
+        </div>
+
+        {/* Instant delivery indicator */}
+        <div className="flex items-center gap-2 mt-4 text-green-400">
+          <Zap className="w-4 h-4" />
+          <span className="text-xs font-medium">Instant Delivery</span>
+        </div>
       </div>
     </div>
   );
